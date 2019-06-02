@@ -30,12 +30,15 @@ public class Cliente implements Serializable {
 	private Integer tipo;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy="cliente")
-	private List<Endereco> endereco = new ArrayList<>();
+	@OneToMany(mappedBy = "cliente")
+	private List<Endereco> enderecos = new ArrayList<>();
 
 	@ElementCollection
-	@CollectionTable(name ="TELEFONE")
+	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
 
 	public Cliente() {
 
@@ -91,11 +94,11 @@ public class Cliente implements Serializable {
 	}
 
 	public List<Endereco> getEndereco() {
-		return endereco;
+		return enderecos;
 	}
 
-	public void setEndereco(List<Endereco> endereco) {
-		this.endereco = endereco;
+	public void setEndereco(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	public Set<String> getTelefones() {
@@ -105,6 +108,14 @@ public class Cliente implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	@Override
 	public int hashCode() {
@@ -112,7 +123,7 @@ public class Cliente implements Serializable {
 		int result = 1;
 		result = prime * result + ((cpfOuCnpj == null) ? 0 : cpfOuCnpj.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
+		result = prime * result + ((enderecos == null) ? 0 : enderecos.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((telefones == null) ? 0 : telefones.hashCode());
@@ -139,10 +150,10 @@ public class Cliente implements Serializable {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (endereco == null) {
-			if (other.endereco != null)
+		if (enderecos == null) {
+			if (other.enderecos != null)
 				return false;
-		} else if (!endereco.equals(other.endereco))
+		} else if (!enderecos.equals(other.enderecos))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -166,5 +177,7 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 }
